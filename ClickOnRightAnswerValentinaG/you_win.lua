@@ -1,52 +1,46 @@
 -----------------------------------------------------------------------------------------
---
--- splash_screen.lua
--- Created by: Your Name
+-- you_lose.lua
+-- Created by: Gil Robern
+-- Modified by: Your Name
 -- Date: Month Day, Year
--- Description: This is the splash screen of the game. It displays the 
--- company logo that...
+-- Description: This shows the player that they lost the game and plays a booing sound.
 -----------------------------------------------------------------------------------------
 
--- Use Composer Library
+-----------------------------------------------------------------------------------------
+-- INITIALIZATIONS
+-----------------------------------------------------------------------------------------
+
+-- Calling Composer Library
 local composer = require( "composer" )
 
--- Name the Scene
-sceneName = "splash_screen"
+local widget = require( "widget" )
 
 -----------------------------------------------------------------------------------------
 
--- Create Scene Object
+-- Naming Scene
+sceneName = "you_win"
+
+-----------------------------------------------------------------------------------------
+
+-- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
-local scrollspeed = 14
--- The local variables for this scene
-local sword = display.newImageRect("Images/CompanyLogoValentina@2x.png", 1100, 800)
 
-sword.y = display.contentWidth * 1.6/4
-sword.x = display.contentHeight * 1/4
---------------------------------------------------------------------------------------------
+-- local variables for the scene
+local bkg
+local youWinSound = audio.loadSound("youWinSound.wav")
+local youWinSoundChannel
+-----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
---------------------------------------------------------------------------------------------
-
--- The function that will go to the main menu 
-
-local function MoveSword(event)
-    -- add the scroll speed to the x-value of the sword
-    sword.x = sword.x + scrollspeed
-    -- change the transparency of the sword every time it moves so that it fades out
-    sword.alpha = sword.alpha + 0.01
-end
-
-local function gotoMainMenu()
-    composer.gotoScene( "main_menu" )
-end
+-----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
+
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -54,9 +48,22 @@ function scene:create( event )
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
-end -- function scene:create( event )
+    -- you win sound
+    youWinSoundChannel = audio.play(youWinSound)
 
---------------------------------------------------------------------------------------------
+    -- Display background
+    bkg = display.newImage("Images/You Win Screen.png")
+    bkg.x = display.contentCenterX
+    bkg.y = display.contentCenterY
+    bkg.width = display.contentWidth
+    bkg.height = display.contentHeight
+    -----------------------------------------------------------------------------------------     
+
+    -- Associating display objects with this scene 
+    sceneGroup:insert( bkg )
+end
+
+-----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
@@ -70,26 +77,19 @@ function scene:show( event )
 
     -----------------------------------------------------------------------------------------
 
-    -- Called when the scene is still off screen (but is about to come on screen).
     if ( phase == "will" ) then
-       
+        -- Called when the scene is still off screen (but is about to come on screen).
+
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
 
-        -- Call the moveBeetleship function as soon as we enter the frame.
-       
-
-        -- movesword will be called over and over again
-        Runtime:addEventListener("enterFrame", MoveSword)
-    
-
-        -- Go to the main menu screen after the given time.
-        timer.performWithDelay ( 3000, gotoMainMenu)          
-        
+        -- Called when the scene is now on screen.
+        -- Insert code here to make the scene come alive.
+        -- Example: start timers, begin animation, play audio, etc.
     end
 
-end --function scene:show( event )
+end
 
 -----------------------------------------------------------------------------------------
 
@@ -98,13 +98,13 @@ function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
+    -----------------------------------------------------------------------------------------
+
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
 
-    -- Called when the scene is on screen (but is about to go off screen).
-    -- Insert code here to "pause" the scene.
-    -- Example: stop timers, stop animation, stop audio, etc.
     if ( phase == "will" ) then
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
@@ -115,6 +115,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
     end
+
 end
 
 -----------------------------------------------------------------------------------------
@@ -131,7 +132,7 @@ function scene:destroy( event )
     -- Called prior to the removal of scene's view ("sceneGroup").
     -- Insert code here to clean up the scene.
     -- Example: remove display objects, save state, etc.
-end -- function scene:destroy( event )
+end
 
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS
@@ -146,3 +147,4 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
+
