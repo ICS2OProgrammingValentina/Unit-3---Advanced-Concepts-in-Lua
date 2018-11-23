@@ -1,10 +1,8 @@
 -----------------------------------------------------------------------------------------
---
--- main.lua
--- Transitions Examples
--- Created by Wal Wal
--- Started November 14
---
+-- Title: WidgetsAndTransitions
+-- Name: Your Name
+-- Course: ICS2O/3C
+-- This program...
 -----------------------------------------------------------------------------------------
 
 -- Hiding Status Bar
