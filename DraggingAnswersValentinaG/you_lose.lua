@@ -1,9 +1,8 @@
 -----------------------------------------------------------------------------------------
---
--- credits_screen.lua
+-- you_lose.lua
 -- Created by: Daniel Lopez-Carreon
 -- Date: Nov. 24th, 2014
--- Description: This is the you win screen
+-- Description: This is the you lose screen
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
@@ -21,7 +20,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "you_win"
+sceneName = "you_lose"
 
 -- Creating Scene Object
 local scene = composer.newScene( sceneName ) -- This function doesn't accept a string, only a variable containing a string
@@ -42,7 +41,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImage("Images/Losescreen.png")
+    bkg_image = display.newImage("Images/Winscreen.png")
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -77,11 +76,11 @@ function scene:show( event )
     end
 
     -- calling sound to be heard when this screen pops up
-    local youWin = audio.loadSound( "Sounds/Correct.wav" )
-    local youWinChannel
+    local youLose = audio.loadSound( "Sounds/youLoseSound.mp3" )
+    local youLoseChannel
 
     -- sound is called
-    youWinChannel = audio.play(youWin)
+    youLoseChannel = audio.play(youLose)
 
 end -- function scene:show( event )
 
