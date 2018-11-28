@@ -70,8 +70,13 @@ local alternateAnswerBox3PreviousX
 local userAnswerBoxPlaceholder
 
 -- sound effects
-local correctSound
-local booSound
+
+-- if user gets answer right this sound plays
+local correctSound = audio.loadSound( "Sounds/Correct.wav" )
+local correctSoundChannel
+-- if user gets answer wrong this sound plays
+local wrongSound = audio.loadSound( "Sounds/boo.mp3")
+local wrongSoundChannel
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -114,7 +119,7 @@ local function DetermineAlternateAnswers()
     alternateAnswerBox2.text = alternateAnswer2
 
     -- generate incorrect answer and set it in the textbox
-    alternateAnswer3 = correctAnswer - math.random(1, 2)
+    alternateAnswer3 = correctAnswer + math.random(1, 2)
     alternateAnswerBox3.text = alternateAnswer3
 
 -------------------------------------------------------------------------------------------
@@ -268,6 +273,9 @@ local function TouchListenerAnswerbox(touch)
                 answerbox.y = userAnswerBoxPlaceholder.y
                 userAnswer = correctAnswer
 
+                -- when correct answer is placed in box, correct sound is played
+                correctSoundChannel = audio.play(correctSound)
+
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
 
@@ -283,7 +291,8 @@ end
 local function TouchListenerAnswerBox1(touch)
     --only work if none of the other boxes have been touched
     if (answerboxAlreadyTouched == false) and 
-        (alternateAnswerBox2AlreadyTouched == false) then
+        (alternateAnswerBox2AlreadyTouched == false) and
+        (alternateAnswerBox3AlreadyTouched == false) then
 
         if (touch.phase == "began") then
             --let other boxes know it has been clicked
@@ -308,6 +317,9 @@ local function TouchListenerAnswerBox1(touch)
 
                 userAnswer = alternateAnswer1
 
+                -- when wrong answer is placed in box, wrong sound plays
+                wrongSoundChannel = audio.play(wrongSound)
+
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
 
@@ -323,7 +335,8 @@ end
 local function TouchListenerAnswerBox2(touch)
     --only work if none of the other boxes have been touched
     if (answerboxAlreadyTouched == false) and 
-        (alternateAnswerBox1AlreadyTouched == false) then
+        (alternateAnswerBox1AlreadyTouched == false) and
+        (alternateAnswerBox3AlreadyTouched == false)then
 
         if (touch.phase == "began") then
             --let other boxes know it has been clicked
@@ -347,6 +360,9 @@ local function TouchListenerAnswerBox2(touch)
                 alternateAnswerBox2.y = userAnswerBoxPlaceholder.y
                 userAnswer = alternateAnswer2
 
+                -- when wrong answer is placed in box, wrong sound plays
+                wrongSoundChannel = audio.play(wrongSound)
+
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
 
@@ -363,7 +379,7 @@ end
 local function TouchListenerAnswerBox3(touch)
     --only work if none of the other boxes have been touched
     if (answerboxAlreadyTouched == false) and 
-        (alternateAnswerBox3AlreadyTouched == false) then
+        (alternateAnswerBox2AlreadyTouched == false) then
 
         if (touch.phase == "began") then
             --let other boxes know it has been clicked
@@ -388,13 +404,16 @@ local function TouchListenerAnswerBox3(touch)
 
                 userAnswer = alternateAnswer3
 
+                -- when wrong answer is placed in box, wrong sound plays
+                wrongSoundChannel = audio.play(wrongSound)
+
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
 
             --else make box go back to where it was
             else
-                alternateAnswerBox3.x = alternateAnswerBox1PreviousX
-                alternateAnswerBox3.y = alternateAnswerBox1PreviousY
+                alternateAnswerBox3.x = alternateAnswerBox3PreviousX
+                alternateAnswerBox3.y = alternateAnswerBox3PreviousY
             end
         end
     end
@@ -444,7 +463,7 @@ function scene:create( event )
     bkg_image.height = display.contentHeight
 
     --the text that displays the question
-    questionText = display.newText( "" , 0, 0, nil, 100)
+    questionText = display.newText( "" , 0, 0, nil, 120)
     questionText.x = display.contentWidth * 0.3
     questionText.y = display.contentHeight * 0.9
 
@@ -460,10 +479,10 @@ function scene:create( event )
     alternateAnswerBox3AlreadyTouched = false
 
     --create answerbox alternate answers and the boxes to show them
-    answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
-    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
-    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
-    alternateAnswerBox3 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
+    answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 120)
+    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.9, 0, nil, 120)
+    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.9, 0, nil, 120)
+    alternateAnswerBox3 = display.newText("", display.contentWidth * 0.9, 0, nil, 120)
 
     -- set the x positions of each of the answer boxes
     answerboxPreviousX = display.contentWidth * 0.9

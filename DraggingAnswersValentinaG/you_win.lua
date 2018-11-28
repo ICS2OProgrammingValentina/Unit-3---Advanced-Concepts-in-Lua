@@ -77,7 +77,7 @@ function scene:show( event )
     end
 
     -- calling sound to be heard when this screen pops up
-    local youWin = audio.loadSound( "Sounds/Correct.wav" )
+    local youWin = audio.loadSound( "Sounds/yabbadabbalaugh.wav" )
     local youWinChannel
 
     -- sound is called
