@@ -58,12 +58,13 @@ local heart3
 local numLives = 3
 
 local rArrow 
+local lArrow
 local uArrow
 
 local motionx = 0
 local SPEED = 5
 local LINEAR_VELOCITY = -100
-local GRAVITY = 7
+local GRAVITY = 5
 
 local leftW 
 local topW
@@ -74,6 +75,10 @@ local ball2
 local theBall
 
 local questionsAnswered = 0
+
+-- sound effect for when spkies are hit
+local spikeSound = audio.loadSound("Sounds/Pop.mp3")
+local spikeSoundChannel  
 
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
@@ -107,11 +112,13 @@ end
 
 local function AddArrowEventListeners()
     rArrow:addEventListener("touch", right)
+    lArrow:addEventListener("touch", left)
     uArrow:addEventListener("touch", up)
 end
 
 local function RemoveArrowEventListeners()
     rArrow:removeEventListener("touch", right)
+    lArrow:removeEventListener("touch", left)
     uArrow:removeEventListener("touch", up)
 end
 
@@ -176,7 +183,7 @@ local function onCollision( self, event )
     if ( event.phase == "began" ) then
 
         --Pop sound
-        popSoundChannel = audio.play(popSound)
+        spikeSoundChannel = audio.play(spikeSound)
 
         if  (event.target.myName == "spikes1") or 
             (event.target.myName == "spikes2") or
@@ -468,15 +475,23 @@ function scene:create( event )
 
     --Insert the right arrow
     rArrow = display.newImageRect("Images/RightArrowUnpressed.png", 100, 50)
-    rArrow.x = display.contentWidth * 9.2 / 10
+    rArrow.x = display.contentWidth * 9.5 / 10
     rArrow.y = display.contentHeight * 9.5 / 10
-   
+
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( rArrow)
 
-    --Insert the left arrow
+    -- Insert left arrow
+    lArrow = display.newImageRect("Images/LeftArrowUnpressed.png", 100, 50)
+    lArrow.x = display.contentWidth * 8 / 10
+    lArrow.y = display.contentHeight * 9.5 / 10
+
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( lArrow )
+
+    --Insert the right arrow
     uArrow = display.newImageRect("Images/UpArrowUnpressed.png", 50, 100)
-    uArrow.x = display.contentWidth * 8.2 / 10
+    uArrow.x = display.contentWidth * 8.8/ 10
     uArrow.y = display.contentHeight * 8.5 / 10
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene

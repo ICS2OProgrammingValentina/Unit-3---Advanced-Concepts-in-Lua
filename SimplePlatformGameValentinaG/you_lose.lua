@@ -85,6 +85,14 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
     end
 
+    -- variables for You lose sound
+    local youLoseSound = audio.loadSound("Sounds/YouLose.mp3")
+    local youLoseSoundChannel
+
+    -- when this screen shows, this sound will play
+    youLoseSoundChannel = audio.play(youLoseSound)
+
+
 end
 
 -----------------------------------------------------------------------------------------
