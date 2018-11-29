@@ -67,6 +67,7 @@ local LINEAR_VELOCITY = -100
 local GRAVITY = 5
 
 local leftW 
+local rightW
 local topW
 local floor
 
@@ -88,6 +89,12 @@ local spikeSoundChannel
 local function right (touch)
     motionx = SPEED
     character.xScale = 1
+end
+
+-- When left arrow is touched, move character left
+local function left (touch)
+    motionx = SPEED
+    character.xScale = -1
 end
 
 -- When up arrow is touched, add vertical so it can jump
@@ -112,7 +119,7 @@ end
 
 local function AddArrowEventListeners()
     rArrow:addEventListener("touch", right)
-    lArrow:addEventListener("touch", left)
+   lArrow:addEventListener("touch", left)
     uArrow:addEventListener("touch", up)
 end
 
@@ -301,6 +308,7 @@ local function AddPhysicsBodies()
     physics.addBody( spikes3platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
 
     physics.addBody(leftW, "static", {density=1, friction=0.3, bounce=0.2} )
+    physics.addBody(rightW, "static", {density=1, friction=0.3, bounce=0.2} )
     physics.addBody(topW, "static", {density=1, friction=0.3, bounce=0.2} )
     physics.addBody(floor, "static", {density=1, friction=0.3, bounce=0.2} )
 
@@ -326,6 +334,7 @@ local function RemovePhysicsBodies()
     physics.removeBody(spikes3platform)
 
     physics.removeBody(leftW)
+    physics.removeBody(rightW)
     physics.removeBody(topW)
     physics.removeBody(floor)
  
