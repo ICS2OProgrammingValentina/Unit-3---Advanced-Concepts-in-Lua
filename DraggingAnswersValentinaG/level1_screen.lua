@@ -531,9 +531,16 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         RestartLevel1()
-        AddAnswerBoxEventListeners() 
+        AddAnswerBoxEventListeners()
 
     end
+    
+    -- background music variables
+    local bkgSound = audio.loadSound("Sounds/background_music.mp3") 
+    local bkgSoundChannel
+
+    -- background music plays when this scene is shown
+    bkgSoundChannel = audio.play(bkgSound)
 
 end --function scene:show( event )
 
