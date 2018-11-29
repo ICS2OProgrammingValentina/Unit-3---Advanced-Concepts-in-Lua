@@ -464,7 +464,7 @@ function scene:create( event )
 
     --the text that displays the question
     questionText = display.newText( "" , 0, 0, nil, 120)
-    questionText.x = display.contentWidth * 0.3
+    questionText.x = display.contentWidth * 0.6
     questionText.y = display.contentHeight * 0.9
 
     -- create the soccer ball and place it on the scene
@@ -479,20 +479,20 @@ function scene:create( event )
     alternateAnswerBox3AlreadyTouched = false
 
     --create answerbox alternate answers and the boxes to show them
-    answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 120)
-    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.9, 0, nil, 120)
-    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.9, 0, nil, 120)
-    alternateAnswerBox3 = display.newText("", display.contentWidth * 0.9, 0, nil, 120)
+    answerbox = display.newText("", display.contentWidth * 0.3, 0, nil, 120)
+    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.3, 0, nil, 120)
+    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.3, 0, nil, 120)
+    alternateAnswerBox3 = display.newText("", display.contentWidth * 0.3, 0, nil, 120)
 
     -- set the x positions of each of the answer boxes
-    answerboxPreviousX = display.contentWidth * 0.9
-    alternateAnswerBox1PreviousX = display.contentWidth * 0.9
-    alternateAnswerBox2PreviousX = display.contentWidth * 0.9
-    alternateAnswerBox3PreviousX = display.contentWidth * 0.9
+    answerboxPreviousX = display.contentWidth * 0.3
+    alternateAnswerBox1PreviousX = display.contentWidth * 0.3
+    alternateAnswerBox2PreviousX = display.contentWidth * 0.3
+    alternateAnswerBox3PreviousX = display.contentWidth * 0.3
 
     -- the black box where the user will drag the answer
     userAnswerBoxPlaceholder = display.newImageRect("Images/userAnswerBoxPlaceholder.png",  130, 130, 0, 0)
-    userAnswerBoxPlaceholder.x = display.contentWidth * 0.6
+    userAnswerBoxPlaceholder.x = display.contentWidth * 0.9
     userAnswerBoxPlaceholder.y = display.contentHeight * 0.9
 
     ----------------------------------------------------------------------------------
